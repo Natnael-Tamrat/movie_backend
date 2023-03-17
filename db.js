@@ -2,11 +2,11 @@ const Sequelize = require("sequelize");
 const dotenv = require("dotenv");
 dotenv.config();
 const sequelize = new Sequelize(
-  process.env.DATABASE,
-  process.env.USER,
-  process.env.PASSWORD,
+  "movie_db",
+  "root",
+  "31de0062",
   {
-    host: process.env.HOST,
+    host: "localhost",
     dialect: "mysql",
   }
 );

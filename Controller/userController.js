@@ -6,7 +6,7 @@ const addUser = async (user) => {
     return createdUser;
   } catch (error) {
     console.log(error.message);
-    return error.message;
+    return 401;
   }
 };
 const getUser = async (user) => {
@@ -22,7 +22,7 @@ const getUser = async (user) => {
       throw new Error("User not found.");
     }
   } catch (error) {
-    return error.message;
+    console.log(error.message);
   }
 };
 const getUserFavourites = async (user) => {

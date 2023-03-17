@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
-// const cors = require("cors");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 dotenv.config();
-// app.use(cors());
+app.use(cors());
 const sequelize = require("./db");
 const {
   addUser,
@@ -23,7 +23,7 @@ sequelize
   .catch((err) => {
     console.log(err);
   });
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await getUser(req.body);
 
@@ -31,20 +31,24 @@ app.get("/login", async (req, res) => {
     res.status(401).send("Invalid username or password");
     return;
   }
-  // const isValidPassword = await bcrypt.compare("12345678", user.password);
-  if (password !== user.password) {
+  const isValidPassword = await bcrypt.compare(password, user.password);
+  if (!isValidPassword) {
     res.status(401).send("Invalid username or password");
     return;
   }
   res.status(200).send("Authentication successful");
 });
-app.get("/favourites", async (req, res) => {
+app.post("/favourites", async (req, res) => {
   const favourites = await getUserFavourites(req.body);
   res.send(favourites);
 });
 app.post("/addUser", async (req, res) => {
-  const createdUser = await addUser(user);
-  res.send(createdUser);
+  const createdUser = await addUser(req.body);
+ if(createdUser == 401){
+  res.status(401).send("Already Exists")
+}
+else {
+ res.send(createdUser);}
 });
 app.post("/insertMovie", async (req, res) => {
   const insertedResult = await addUserFavourites(req.body);

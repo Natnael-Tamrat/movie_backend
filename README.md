@@ -9,7 +9,8 @@ The configuration with the `mysql` database is configured with `db.js` file.
 
 ## Database and ORM 
 
-I have used a relation Database `My-SQL` and an ORM `Sequelise` for conducting CRUD operations.
+I have used a relation Database `My-SQL` and an ORM `Sequelise` for conducting CRUD operations. The Database name is `movie_db`.
+`root` user. if you want to run the application locally make sure to install mysql and create an empty movie_db database.
 
 ### Authentication 
 
@@ -23,3 +24,8 @@ The node app built by Express framework and used packages like `dotenv` for crea
 
 The node application is Deployed on cloud service (Linode). used `Nginx` for port forwarding and accessing the API request through http request.
 also used `pm2` task runner.
+
+### usage 
+
+The node application is already connected with the frontend and returns response whenever there is an API call from the frontend.in this case you dont need to run the 
+node application as it is already running. if you want to run it locally make sure you install node modules again `npm install` and run the entry point `node app.js`.
